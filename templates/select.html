@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>COINS</title>
+    <script type="text/javascript" src=  "{{ url_for('static', filename = 'js/jquery_3.4.1_jquery.js') }}" ></script>
+    <style>
+         table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            margin: 30px auto 30px auto;
+        }
+
+        td, th {
+           font-family: "Open Sans", Arial, sans-serif;
+            border-bottom: 1px solid #dddddd;
+            text-align: left;
+            padding: 15px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+         tr:nth-child(2) {
+            border-top: 1px solid #dddddd;
+        }
+        table.sortable thead {
+                background-color:#eee;
+                color: #000000;
+                font-weight: bold;
+                cursor: pointer;
+        }
+        .searchBar {
+            width: 500px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1> SELECT YOUR COIN </h1>
+    <div class="container-fluid">
+        <input class="searchBar form-control mr-sm-2" type="search" placeholder="Search for ticker" aria-label="search" name="search" id="search">
+        <table>
+            <tr>
+                <th> COINS </th>
+            </tr>
+
+            {% for i in data %}
+
+                <tr>
+                    <td><a href="/{{ i }}">{{ i }}</a></td>
+                </tr>
+
+            {% endfor %}
+        </table>
+    </div>
+
+     <script>
+                $(document).ready(function() {
+                    $("#search").on("keyup", function() {
+                        let value = $(this).val().toLowerCase();
+                        $("#stocks tr").filter(function() {
+                            $(this).toggle($(this).text()
+                            .toLowerCase().indexOf(value) > -1)
+                        });
+                    });
+                });
+    </script>
+
+     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+</body>
+</html>
